@@ -21,7 +21,9 @@ import Rectangle from './Components/Rectangle/Rectangle';
 import CreateWallet from './Screens/CreateWallet/CreateWallet';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import  Carousel  from 'react-native-snap-carousel';
-
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { Provider } from 'react-redux';
+import walletReducer from './Redux/reducers/wallets';
 const ENTRIES2 = [ {name: "test1"}, {name: "test2"}, {name: "test3"}];
 
 class HomeScreen extends Component {
@@ -56,6 +58,11 @@ class HomeScreen extends Component {
  }
 }
 
+const rootReducer = combineReducers({
+    wallet: walletReducer
+});
+const store = createStore(rootReducer);
+
 const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen
@@ -63,6 +70,8 @@ const AppNavigator = createStackNavigator({
     CreateWallet: {
         screen: CreateWallet
     }
+},{
+    initialRouteName: 'Home',
 });
 
 const styles = StyleSheet.create({
@@ -108,4 +117,8 @@ const styles = StyleSheet.create({
 });
 
 // export default HomeScreen;
-export default createAppContainer(AppNavigator);
+export default createAppContainer(
+    <Provider store={store}>
+        <AppNavigator />
+    </Provider>
+);

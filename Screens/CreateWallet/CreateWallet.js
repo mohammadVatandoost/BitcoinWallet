@@ -4,7 +4,8 @@ import {
     Text, StyleSheet,
     TextInput, TouchableHighlight
 } from 'react-native';
-
+import { connect } from 'react-redux';
+import * as actions from '../../Redux/actions/wallets';
 
 
 class CreateWallet extends Component {
@@ -55,4 +56,17 @@ const styles = StyleSheet.create({
 });
 
 
-export default CreateWallet;
+const mapStateToProps = state => {
+    return {
+        loading: state.wallet.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) )
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWallet);
