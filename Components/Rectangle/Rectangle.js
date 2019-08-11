@@ -4,13 +4,16 @@ import {
     Text, StyleSheet,
     StatusBar, TouchableHighlight
 } from 'react-native';
-
+import {withNavigation} from 'react-navigation'
 
 
 class Rectangle extends Component {
 
     onPress = () => {
-
+        console.log("onPress");
+        console.log(this.props.screen);
+        console.log(this.props.navigation);
+        this.props.navigation.push(this.props.screen);
     }
 
     render() {
@@ -27,7 +30,7 @@ class Rectangle extends Component {
 const styles = StyleSheet.create({
     container: {
         width: '80%',
-        height: '25%', borderRadius:10, justifyContent: 'center',
+        height: '20%', borderRadius:10, justifyContent: 'center',
         backgroundColor: 'skyblue', alignItems: 'center',
         shadowColor: "#000",
         shadowOffset: {
@@ -45,4 +48,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Rectangle;
+export default withNavigation(Rectangle);
