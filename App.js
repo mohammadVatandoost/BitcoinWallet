@@ -20,10 +20,12 @@ import {
 import Rectangle from './Components/Rectangle/Rectangle';
 import CreateWallet from './Screens/CreateWallet/CreateWallet';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import { persistStore, persistCombineReducers } from 'redux-persist'
 import  Carousel  from 'react-native-snap-carousel';
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from 'react-redux';
 import walletReducer from './Redux/reducers/wallets';
+import storage from 'redux-persist/lib/storage'
 const ENTRIES2 = [ {name: "test1"}, {name: "test2"}, {name: "test3"}];
 
 class HomeScreen extends Component {
@@ -38,7 +40,7 @@ class HomeScreen extends Component {
               <Carousel
                   data={ENTRIES2}
                   renderItem={this._renderItem}
-                  sliderWidth={200}
+                  sliderWidth={300}
                   itemWidth={200}
                   inactiveSlideScale={0.95}
                   inactiveSlideOpacity={1}
@@ -58,10 +60,27 @@ class HomeScreen extends Component {
  }
 }
 
-const rootReducer = combineReducers({
+const config = {
+    key: 'primary',
+    storage
+}
+
+
+ const rootReducer = combineReducers({
     wallet: walletReducer
 });
 const store = createStore(rootReducer);
+
+// Use the reducer combining function provided by redux-persist
+// const reducer = persistCombineReducers(config, { wallet: walletReducer })
+// const store = createStore(reducer); //, applyMiddleware(logger)
+// persistStore(
+//     store,
+//     null,
+//     () => {
+//         store.getState() // if you want to get restoredState
+//     }
+// )
 
 const AppNavigator = createStackNavigator({
     Home: {
@@ -77,6 +96,7 @@ const AppNavigator = createStackNavigator({
 const styles = StyleSheet.create({
   container: {
     flex: 1, flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center',
+    paddingTop: 10
   },
   scrollView: {
     backgroundColor: Colors.lighter,
@@ -116,9 +136,13 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default HomeScreen;
-export default createAppContainer(
-    <Provider store={store}>
-        <AppNavigator />
-    </Provider>
-);
+const App = createAppContainer(AppNavigator);
+
+export default App;
+
+// export default AppNavigator;
+// export default createAppContainer(
+//     <Provider store={store}>
+//         <AppNavigator />
+//     </Provider>
+// );
