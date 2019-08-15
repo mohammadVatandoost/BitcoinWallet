@@ -18,8 +18,8 @@ class Rectangle extends Component {
 
     render() {
         return (
-            <TouchableHighlight style={styles.container} onPress={this.onPress}>
-                <Text style={styles.text}>{this.props.text}</Text>
+            <TouchableHighlight style={{...styles.container, ...this.props.style}} onPress={this.onPress}>
+                <Text style={{...styles.text, ...this.props.textStyle}}>{this.props.text}</Text>
             </TouchableHighlight>
         );
     }

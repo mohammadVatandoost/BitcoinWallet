@@ -17,6 +17,7 @@ import {
 import  Carousel  from 'react-native-snap-carousel';
 import Rectangle from '../../Components/Rectangle/Rectangle';
 import { connect } from 'react-redux';
+import {FastDesign, bcackGroundColor, textColor} from '../../Styles/Styles';
 
 const ENTRIES2 = [ {name: "test1"}, {name: "test2"}, {name: "test3"}];
 
@@ -45,9 +46,11 @@ class HomeScreen extends Component {
                       tension: 40
                   }}
               />
-              <Rectangle text="Create Wallet"  screen="CreateWallet" />
-              <Rectangle text="Import Wallet"/>
-              <Rectangle text="Import Gift cart"/>
+              <View style={{...FastDesign.flexColumn, ...FastDesign.flexSpaceAround}}>
+                <Rectangle text="Create Wallet" textStyle={{...textColor.white}}  screen="CreateWallet" style={{...bcackGroundColor.green, ...FastDesign.p4}} />
+                <Rectangle text="Import Wallet" textStyle={{...textColor.white}}  style={{...bcackGroundColor.yellow, ...FastDesign.p4, ...textColor.white}}/>
+                <Rectangle text="Import Gift cart" textStyle={{...textColor.white}}  style={{...bcackGroundColor.pink, ...FastDesign.p4, ...textColor.white}} />
+              </View>
             </View>
   );
  }
