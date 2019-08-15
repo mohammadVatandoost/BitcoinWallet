@@ -9,6 +9,8 @@ const initialState = {
 const createWallet = (state, action) => {
     let temp = state.wallets;
     temp.push({walletName: action.walletName, privateAddress: action.privateAddress, publicAddress: action.publicAddress, });
+    console.log("createWallet reducer");
+    console.log(temp);
     return updateObject(state, {wallets: temp});
 }
 

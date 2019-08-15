@@ -4,7 +4,7 @@ import {
     Text, StyleSheet,
     TextInput, TouchableHighlight
 } from 'react-native';
-import {withNavigation} from 'react-navigation'
+import {withNavigation, NavigationActions} from 'react-navigation'
 import { connect } from 'react-redux';
 import * as actions from '../../Redux/actions/wallets';
 
@@ -18,7 +18,10 @@ class CreateWallet extends Component {
 
     onPress = () => {
         // this.props.navigation.navigate(this.props.screen);
-        // this.props.createWallet(this.state.walletName, "test", "test");
+        this.props.createWallet(this.state.walletName, "test", "test");
+        // this.props.navigation.back();
+        // this.props.navigation.dispatch(NavigationActions.back())
+        this.props.navigation.push("Home");
     }
 
     render() {
@@ -71,18 +74,18 @@ const styles = StyleSheet.create({
 });
 
 
-// const mapStateToProps = state => {
-//     return {
-//         loading: state.wallet.loading
-//     };
-// };
-//
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) )
-//     };
-// };
+const mapStateToProps = state => {
+    return {
+        loading: state.wallet.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) )
+    };
+};
 
 
-// export default connect(mapStateToProps, mapDispatchToProps)(CreateWallet);
-export default CreateWallet;
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(CreateWallet));
+// export default CreateWallet;
