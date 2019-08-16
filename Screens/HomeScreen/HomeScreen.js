@@ -18,10 +18,15 @@ import  Carousel  from 'react-native-snap-carousel';
 import Rectangle from '../../Components/Rectangle/Rectangle';
 import { connect } from 'react-redux';
 import {FastDesign, bcackGroundColor, textColor} from '../../Styles/Styles';
+import * as actions from '../../Redux/actions/wallets';
 
 const ENTRIES2 = [ {name: "test1"}, {name: "test2"}, {name: "test3"}];
 
 class HomeScreen extends Component {
+
+    componentDidMount() {
+       this.props.updateWallets();
+    }
 
     _renderItem ({item, index}) {
         return  <Rectangle text={item.walletName}/>;
@@ -108,7 +113,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) )
+        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) ),
+        updateWallets: () => dispatch( actions.updateWallets() )
     };
 };
 

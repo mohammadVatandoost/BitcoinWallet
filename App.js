@@ -17,7 +17,9 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from 'react-redux';
 import walletReducer from './Redux/reducers/wallets';
 import storage from 'redux-persist/lib/storage'
+import thunk from "redux-thunk";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const config = {
     key: 'primary',
@@ -28,7 +30,10 @@ const config = {
  const rootReducer = combineReducers({
     wallet: walletReducer
 });
-const store = createStore(rootReducer);
+ 
+const store = createStore(rootReducer, composeEnhancers(
+    applyMiddleware(thunk)
+));
 
 // Use the reducer combining function provided by redux-persist
 // const reducer = persistCombineReducers(config, { wallet: walletReducer })

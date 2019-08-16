@@ -12,11 +12,18 @@ const createWallet = (state, action) => {
     console.log("createWallet reducer");
     console.log(temp);
     return updateObject(state, {wallets: temp});
-}
+};
+
+const updateWallets = (state, action) => {
+    console.log("getWallets reducer");
+    console.log(action.wallets);
+    return updateObject(state, {wallets: action.wallets});
+};
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.Create_Wallet: return createWallet(state, action);
+        case actionTypes.Update_Wallet: return updateWallets(state, action);
         default:
             return state;
     }
