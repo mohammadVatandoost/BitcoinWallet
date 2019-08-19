@@ -1,51 +1,38 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text, StyleSheet, Button,
+    Text, StyleSheet,
     TextInput, TouchableHighlight
 } from 'react-native';
 import {withNavigation, NavigationActions} from 'react-navigation'
 import { connect } from 'react-redux';
 import * as actions from '../../Redux/actions/wallets';
-import {FastDesign} from '../../Styles/Styles';
+import {FastDesign, color} from "../../Styles/Styles";
+import HorizontalLine from '../../Components/HorizontalLine/HorizontalLine';
 
-class ImportWallet extends Component {
+class WalletPage extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { walletName: '', privateAddress: '' };
+        this.state = { walletName: '' };
     }
 
     onPress = () => {
         // this.props.navigation.navigate(this.props.screen);
         this.props.createWallet(this.state.walletName, "test", "test");
-        // this.props.navigation.back();
-        // this.props.navigation.dispatch(NavigationActions.back())
         this.props.navigation.goBack();
-    };
-
-    scanQRCode = () => {
-        this.props.navigation.push("QRCodeScan");
+        // this.props.navigation.dispatch(NavigationActions.back())
+        // this.props.navigation.push("Home");
     }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.title}>Import Wallet</Text>
-                <View>
-                    <TextInput placeholder="Enter private address of wallet"
-                               style={styles.primery_input}
-                               onChangeText={(text) => this.setState({privateAddress: text})}
-                               value={this.state.privateAddress}
-                    />
-                    <Text>Or</Text>
-                    <Button onPress={this.scanQRCode}
-                            title="Scan QR code"
-                            color="#841584"  />
+            <View style={{...FastDesign.flexColumn}}>
+                <Text>Wallet Name</Text>
+                <View style={{...FastDesign.flexRow, ...FastDesign.alignCenter}}>
+                    <Text>10.25666 BTC</Text>
                 </View>
-                <TouchableHighlight style={styles.successBtn} onPress={this.onPress}>
-                    <Text style={styles.textBtn}> Import </Text>
-                </TouchableHighlight>
+               <HorizontalLine color={color.black} width="5"  />
             </View>
         );
     }
@@ -97,5 +84,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(ImportWallet));
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(WalletPage));
 // export default CreateWallet;

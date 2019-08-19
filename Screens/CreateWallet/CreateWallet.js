@@ -19,12 +19,18 @@ class CreateWallet extends Component {
     onPress = () => {
         // this.props.navigation.navigate(this.props.screen);
         this.props.createWallet(this.state.walletName, "test", "test");
-        // this.props.navigation.back();
+        const refreshFunction = this.props.navigation.state.params.refreshFunction;
+        if(typeof refreshFunction === 'function')
+        {
+            refreshFunction();                
+        }
+        this.props.navigation.goBack();
         // this.props.navigation.dispatch(NavigationActions.back())
-        this.props.navigation.push("Home");
+        // this.props.navigation.push("Home");
     }
 
     render() {
+        console.log("CreateWallet page this.props.loading");console.log(this.props.loading);
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Create New Wallet</Text>

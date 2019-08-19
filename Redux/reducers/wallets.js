@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
+import {AsyncStorage} from 'react-native';
 
 const initialState = {
     wallets: [],
@@ -8,22 +9,23 @@ const initialState = {
 
 const createWallet = (state, action) => {
     let temp = state.wallets;
-    temp.push({walletName: action.walletName, privateAddress: action.privateAddress, publicAddress: action.publicAddress, });
+    temp.push({walletName: action.walletName, privateAddress: action.privateAddress, publicAddress: action.publicAddress });
     console.log("createWallet reducer");
     console.log(temp);
+     AsyncStorage.setItem("state", JSON.stringify({ ...state ,...{wallets: temp}}));
     return updateObject(state, {wallets: temp});
 };
 
-const updateWallets = (state, action) => {
+const updateState = (state, action) => {
     console.log("getWallets reducer");
-    console.log(action.wallets);
-    return updateObject(state, {wallets: action.wallets});
+    console.log(action.state);
+    return updateObject(state, action.state);
 };
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.Create_Wallet: return createWallet(state, action);
-        case actionTypes.Update_Wallet: return updateWallets(state, action);
+        case actionTypes.Update_State: return updateState(state, action);
         default:
             return state;
     }

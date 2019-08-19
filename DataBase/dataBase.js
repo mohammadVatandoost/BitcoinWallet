@@ -1,5 +1,5 @@
 const Realm = require('realm');
-
+console.log('REALM PATH', Realm.defaultPath);
 // Define your models and their properties
 const WalletSchema = {
     name: 'Wallet',

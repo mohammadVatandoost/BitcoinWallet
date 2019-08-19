@@ -7,8 +7,6 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-
-
 import CreateWallet from './Screens/CreateWallet/CreateWallet';
 import HomeScreen from './Screens/HomeScreen/HomeScreen';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
@@ -18,6 +16,9 @@ import { Provider } from 'react-redux';
 import walletReducer from './Redux/reducers/wallets';
 import storage from 'redux-persist/lib/storage'
 import thunk from "redux-thunk";
+import ImportWallet from './Screens/ImportWallet/ImportWallet';
+import QRCodeScan from './Screens/QRCodeScan/QRCodeScan';
+import * as actions from './Redux/actions/wallets';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -34,6 +35,8 @@ const config = {
 const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
+
+// store.dispatch(actions.updateStateFromLocalStorage());
 
 // Use the reducer combining function provided by redux-persist
 // const reducer = persistCombineReducers(config, { wallet: walletReducer })
@@ -52,7 +55,13 @@ const AppNavigator = createStackNavigator({
     },
     CreateWallet: {
         screen: CreateWallet
-    }
+    },
+    ImportWallet: {
+        screen: ImportWallet
+    },
+    QRCodeScan: {
+        screen: QRCodeScan
+    },
 },{
     initialRouteName: 'Home',
 });
