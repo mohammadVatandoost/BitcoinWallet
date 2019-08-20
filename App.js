@@ -83,7 +83,7 @@ const AppContainer  = createAppContainer(AppNavigator);
 export default class App extends Component {
   constructor(properties) {
     super(properties);
-    OneSignal.init("70c2bcf9-e17c-48a5-b14c-1f6e6632c3ec");
+    OneSignal.init("70c2bcf9-e17c-48a5-b14c-1f6e6632c3ec", {kOSSettingsKeyAutoPrompt : true});
 
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
