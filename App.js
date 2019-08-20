@@ -19,6 +19,7 @@ import thunk from "redux-thunk";
 import ImportWallet from './Screens/ImportWallet/ImportWallet';
 import QRCodeScan from './Screens/QRCodeScan/QRCodeScan';
 import * as actions from './Redux/actions/wallets';
+import OneSignal from 'react-native-onesignal';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -80,6 +81,37 @@ const AppContainer  = createAppContainer(AppNavigator);
 // );
 
 export default class App extends Component {
+  constructor(properties) {
+    super(properties);
+    OneSignal.init("70c2bcf9-e17c-48a5-b14c-1f6e6632c3ec");
+
+    OneSignal.addEventListener('received', this.onReceived);
+    OneSignal.addEventListener('opened', this.onOpened);
+    OneSignal.addEventListener('ids', this.onIds);
+    OneSignal.configure();  // triggers the ids event
+    console.log('OneSignal init ');
+  }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('received', this.onReceived);
+    OneSignal.removeEventListener('opened', this.onOpened);
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onReceived(notification) {
+    console.log("Notification received: ", notification);
+  }
+
+  onOpened(openResult) {
+    console.log('Message: ', openResult.notification.payload.body);
+    console.log('Data: ', openResult.notification.payload.additionalData);
+    console.log('isActive: ', openResult.notification.isAppInFocus);
+    console.log('openResult: ', openResult);
+  }
+
+  onIds(device) {
+    console.log('Device info: ', device);
+  }
   render () {
     return (
         <Provider store={store}>

@@ -10,5 +10,10 @@ module.exports = {
                 android: null, // disable Android platform, other platforms will still autolink if provided
             },
         },
+        'react-native-onesignal': {
+            platforms: {
+                android: null, // disable Android platform, other platforms will still autolink if provided
+            },
+        },
     },
 };
