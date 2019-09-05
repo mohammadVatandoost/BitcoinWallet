@@ -32,6 +32,8 @@ target 'MyBitcoinWallet' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'MyBitcoinWalletTests' do
     inherit! :search_paths
     # Pods for testing

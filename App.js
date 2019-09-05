@@ -20,6 +20,8 @@ import ImportWallet from './Screens/ImportWallet/ImportWallet';
 import QRCodeScan from './Screens/QRCodeScan/QRCodeScan';
 import * as actions from './Redux/actions/wallets';
 import OneSignal from 'react-native-onesignal';
+import SplashScreen from 'react-native-splash-screen'; // it must be imported
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -91,6 +93,12 @@ export default class App extends Component {
     OneSignal.configure();  // triggers the ids event
     console.log('OneSignal init ');
   }
+
+  componentDidMount() {
+      // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        // SplashScreen.hide();
+    }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);

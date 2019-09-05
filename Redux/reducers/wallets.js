@@ -4,7 +4,9 @@ import {AsyncStorage} from 'react-native';
 
 const initialState = {
     wallets: [],
-    loading: false
+    loading: false,
+    error: '',
+    transactions: [],
 };
 
 const createWallet = (state, action) => {
@@ -24,8 +26,9 @@ const updateState = (state, action) => {
 
 const reducer = ( state = initialState, action ) => {
     switch ( action.type ) {
-        case actionTypes.Create_Wallet: return createWallet(state, action);
-        case actionTypes.Update_State: return updateState(state, action);
+        case actionTypes.Add_Wallet: return createWallet(state, action);
+        case actionTypes.Add_Transaction: return updateState(state, action);
+        case actionTypes.Set_Store: return updateState(state, action);
         default:
             return state;
     }

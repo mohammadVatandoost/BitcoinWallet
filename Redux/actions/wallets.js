@@ -1,87 +1,56 @@
 import * as actionTypes from './actionTypes';
-import { openWalletDatabase } from  '../../DataBase/dataBase';
+// import { openWalletDatabase } from  '../../DataBase/dataBase';
 import {AsyncStorage} from 'react-native';
 
-export const createWallet = (walletName, privateAddress, publicAddress) => {
-    console.log('createWallet actions');
+export const addWallet = (walletName, privateAddress, publicAddress) => {
+    console.log('addWallet actions');
     return {
-                    type: actionTypes.Create_Wallet,
+                    type: actionTypes.Add_Wallet,
                     walletName: walletName,
                     privateAddress: privateAddress,
                     publicAddress: publicAddress
-                }
-    // return dispatch => {
-        // openWalletDatabase().then((realm) => {
-        //     realm.write(() => {
-        //         const wallet = realm.create('Wallet', {
-        //             name: walletName,
-        //             privateAddress: privateAddress,
-        //             publicAddress: publicAddress,
-        //         });
-        //         console.log("wallet added");
-        //         console.log(wallet);
-        //         dispatch(addWalletToStore(walletName, privateAddress, publicAddress));
-        //     });
-        // });
-
-    //     dispatch(addWalletToStore(walletName, privateAddress, publicAddress));
-    // };
-
+    }
 };
 
-export const updateStateFromLocalStorage =  () => {
-    return dispatch => {
-    console.log("updateStateFromLocalStorage");
-    // AsyncStorage.removeItem("state");
-    AsyncStorage.getItem('state', (err, result) => {
-      console.log(result);
-      if(result !== null) {
-        console.log("result is not null");
-        dispatch( returnUpdateState(result));
-       };
-    });
-    
-    // return {
-    //       type: actionTypes.Update_State,
-    //       state: JSON.parse(temp)          
-    //     } 
-    };
-}
-
-export const returnUpdateState = (result) => {
-     return {
-              type: actionTypes.Update_State,
-              state: JSON.parse(result)          
-            }
-}
-
-export const addWalletToStore = (walletName, privateAddress, publicAddress) => {
+export const addTransaction = (transactionType, from, to, value) => {
+    console.log('addTransaction actions');
     return {
-                    type: actionTypes.Create_Wallet,
-                    walletName: walletName,
-                    privateAddress: privateAddress,
-                    publicAddress: publicAddress
-                }
-}
-
-export const updateWallets = () => {
-    console.log('updateWallets actions');
-    return dispatch => {
-        // openWalletDatabase().then((realm) => {
-        //     const wallets = realm.objects('Wallet');
-        //     console.log("realm.objects('wallets')");
-        //     console.log(wallets);
-        //     dispatch(updateStoreWallets(wallets));
-        // });
-        
-         // dispatch(updateStoreWallets(wallets));
-    };
-
+                    type: actionTypes.Add_Transaction,
+                    transactionType: transactionType,
+                    from: from,
+                    to: to,
+                    value: value
+    }
 };
 
-const updateStoreWallets = (wallets) => {
+export const checkStorage = () => {
+    console.log('checkStorage actions');
+    return dispatch => {
+     AsyncStorage.getItem('store').then((value) => {
+        console.log("AsyncStorage store");
+        console.log(value);
+        if(value !== null) {
+           if(isJsonString(value)) {
+              dispatch(setStore(JSON.parse(value)));
+           } 
+        } 
+     });
+   };
+};
+
+export const setStore = (store) => {
+    console.log('setStore actions');
     return {
-                type: actionTypes.Update_Wallet,
-                wallets: wallets
-            }
+             type: actionTypes.Set_Store, 
+             store: store                  
+    }
+};
+
+const isJsonString = (str) => {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
