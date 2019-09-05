@@ -2,13 +2,14 @@ import * as actionTypes from './actionTypes';
 // import { openWalletDatabase } from  '../../DataBase/dataBase';
 import {AsyncStorage} from 'react-native';
 
-export const addWallet = (walletName, privateAddress, publicAddress) => {
+export const addWallet = (walletName, privateAddress, publicAddress, value) => {
     console.log('addWallet actions');
     return {
                     type: actionTypes.Add_Wallet,
                     walletName: walletName,
                     privateAddress: privateAddress,
-                    publicAddress: publicAddress
+                    publicAddress: publicAddress,
+                    value: value
     }
 };
 
@@ -26,8 +27,8 @@ export const addTransaction = (transactionType, from, to, value) => {
 export const checkStorage = () => {
     console.log('checkStorage actions');
     return dispatch => {
-     AsyncStorage.getItem('store').then((value) => {
-        console.log("AsyncStorage store");
+     AsyncStorage.getItem('state').then((value) => {
+        console.log("AsyncStorage state");
         console.log(value);
         if(value !== null) {
            if(isJsonString(value)) {

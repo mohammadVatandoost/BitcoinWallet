@@ -39,7 +39,7 @@ const store = createStore(rootReducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 
-// store.dispatch(actions.updateStateFromLocalStorage());
+store.dispatch(actions.checkStorage());
 
 // Use the reducer combining function provided by redux-persist
 // const reducer = persistCombineReducers(config, { wallet: walletReducer })

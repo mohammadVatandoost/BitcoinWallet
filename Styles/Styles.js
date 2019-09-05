@@ -12,6 +12,9 @@ export const FastDesign = StyleSheet.create({
     flexColumn: {
         flexDirection: 'column'
     },
+    flewWrap: {
+        flexWrap: 'wrap',
+    },
     flexSpaceAround: {
         justifyContent: 'space-around'
     },
@@ -21,6 +24,15 @@ export const FastDesign = StyleSheet.create({
     alignCenter: {
         alignItems: 'center'
     },
+    justifyContent: {
+        justifyContent: 'center'
+    },
+    BYekanFont: {
+        fontFamily: 'BYekan'
+    },
+    textCenter: {textAlign: 'center'},
+    textRight: {textAlign: 'right'},
+    textLeft: {textAlign: 'left'},
     mt1: {
       marginTop: 5
     },
@@ -161,9 +173,18 @@ export const FastDesign = StyleSheet.create({
     p2: {padding: 10},
     p3: {padding: 15},
     p4: {padding: 20},
+    h1: {fontSize: 44, marginTop:6, marginBottom:6, fontWeight: 'bold'},
+    h2: {fontSize: 32, marginTop:5, marginBottom:5, fontWeight: 'bold'},
+    h3: {fontSize: 28, marginTop:4, marginBottom:4, fontWeight: 'bold'},
+    h4: {fontSize: 22, marginTop:3, marginBottom:3},
+    h5: {fontSize: 18, marginTop:2, marginBottom:2},
+    h6: {fontSize: 15, marginTop:1, marginBottom:1},
+    alignSelfStretch: {
+        alignSelf: 'stretch',
+    }
 });
 
-export const bcackGroundColor = StyleSheet.create({
+export const backgroundColor = StyleSheet.create({
     white: {
         backgroundColor: '#FFFFFF'
     },

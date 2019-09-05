@@ -30,7 +30,7 @@ class HomeScreen extends Component {
 
     componentDidMount() {
        // this.props.updateWallets();
-       this.props.updateStateFromLocalStorage();
+       // this.props.updateStateFromLocalStorage();
     }
 
     _renderItem ({item, index}) {
@@ -38,7 +38,7 @@ class HomeScreen extends Component {
     }
 
     refreshFunction = () => {
-      console.log("refreshFunction")
+      console.log("homescreen refreshFunction")
         this.forceUpdate();
     };
 
@@ -134,9 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) ),
-        updateWallets: () => dispatch( actions.updateWallets() ),
-        updateStateFromLocalStorage : () => dispatch(actions.updateStateFromLocalStorage())
+        addWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.addWallet(walletName, privateAddress, publicAddress) ),
     };
 };
 
