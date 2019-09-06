@@ -8,5 +8,13 @@ export const globalStyle = StyleSheet.create({
 	},
 	buttonBackgroud: {
 		backgroundColor: '#0486DB', 
-	}
-})
+	},
+	textColor: {
+		color: '#0486DB', 
+	},
+	
+});
+
+export const globalVariable = {
+	iconColor: '#FFA700',
+}

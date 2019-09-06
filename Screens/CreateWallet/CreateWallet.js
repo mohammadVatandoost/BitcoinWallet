@@ -36,7 +36,7 @@ class CreateWallet extends Component {
             <View style={{...styles.container, ...globalStyle.backgroundColor}}>
                 <Text style={styles.title}>Create New Wallet</Text>
                 <TextInput placeholder="Enter your wallet name"
-                    style={styles.primery_input}
+                    style={styles.primery_input} placeholderTextColor="white"
                     onChangeText={(text) => this.setState({walletName: text})}
                     value={this.state.walletName}
                 />

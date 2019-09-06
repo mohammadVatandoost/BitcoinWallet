@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text, StyleSheet,
+    Text, StyleSheet, Image,
     TextInput, TouchableHighlight
 } from 'react-native';
 import {withNavigation, NavigationActions} from 'react-navigation'
@@ -9,12 +9,30 @@ import { connect } from 'react-redux';
 import * as actions from '../../Redux/actions/wallets';
 import {FastDesign, color} from "../../Styles/Styles";
 import HorizontalLine from '../../Components/HorizontalLine/HorizontalLine';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {globalStyle, globalVariable} from '../../Styles/globalStyle';
 
 class WalletReceive extends Component {
 
+    static navigationOptions = {
+        tabBarLabel: "Receive",
+        tabBarIcon:  ({ focused, tintColor }) => {
+            return <Icon size={30} name="cloud_download" color={tintColor} />;
+        },
+    }
+
     constructor(props) {
         super(props);
-        this.state = { walletName: '' };
+        this.state = { publicAddress: '', value: 0 };
+        var wallets = this.props.wallets;
+        console.log("WalletReceive constructor");
+        console.log(wallets);
+        for(var i=0; i<wallets.length; i++) {
+            if(wallets[i].walletName === this.props.activeWallet) {
+                console.log(wallets[i]);
+               this.setState({publicAddress: wallets[i].publicAddress, value: wallets[i].value})
+            }
+        }
     }
 
     onPress = () => {
@@ -23,18 +41,27 @@ class WalletReceive extends Component {
         // this.props.navigation.goBack();
         // this.props.navigation.dispatch(NavigationActions.back())
         // this.props.navigation.push("Home");
+  
     }
 
     render() {
         return (
-            <View style={{...FastDesign.flexColumn}}>
-                <Text>WalletReceive</Text>
+            <View style={{...FastDesign.flexColumn, ...FastDesign.alignCenter, ...FastDesign.flexOne, ...globalStyle.backgroundColor}}>
+                <Text style={{...globalStyle.textColor, ...FastDesign.textCenter, ...FastDesign.h3}}>{this.props.activeWallet}</Text>
+                <Image style={{height: 200, width: 200, marginTop: 25, marginBottom: 25}} source={require('../../assets/images/QRCode.png')} />
+                <Text style={{...globalStyle.textColor, ...FastDesign.textCenter, ...FastDesign.h5}}>Your Current Bitcoin Wallet</Text>
+                <Text style={{...globalStyle.textColor, ...FastDesign.textCenter, ...FastDesign.h5}}>{this.state.publicAddress}</Text>
+                <View style={{...FastDesign.flexRow, ...FastDesign.col4, ...FastDesign.flexSpaceAround, ...FastDesign.mt2}}>    
+                    <Icon.Button name="file_copy" iconStyle={{marginRight: 0}} backgroundColor={globalVariable.iconColor} onPress={this.loginWithFacebook} />
+                    <Icon.Button name="share" iconStyle={{marginRight: 0}} backgroundColor={globalVariable.iconColor} onPress={this.loginWithFacebook} />
+                </View>
             </View>
         );
     }
 }
 
-
+//<Icon size={60} name="file_copy" color={globalVariable.iconColor} />;
+ //                   <Icon size={60} name="share" color={globalVariable.iconColor} />;
 
 const styles = StyleSheet.create({
     container: {
@@ -69,7 +96,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        loading: state.wallet.loading
+        loading: state.wallet.loading,
+        activeWallet: state.wallet.activeWallet,
+        wallets: state.wallet.wallets
     };
 };
 

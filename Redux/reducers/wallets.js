@@ -38,7 +38,7 @@ const setStore = (state, action) => {
 
 const setActiveWallet = (state, action) => {
     console.log('setActiveWallet reducer');
-    console.log(store);
+    console.log(action.walletName);
     return updateObject(state, {activeWallet: action.walletName});
 };
 

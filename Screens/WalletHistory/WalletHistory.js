@@ -9,8 +9,17 @@ import { connect } from 'react-redux';
 import * as actions from '../../Redux/actions/wallets';
 import {FastDesign, color} from "../../Styles/Styles";
 import HorizontalLine from '../../Components/HorizontalLine/HorizontalLine';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {globalStyle} from '../../Styles/globalStyle';
 
 class WalletHistory extends Component {
+
+    static navigationOptions = {
+        tabBarLabel: "History",
+        tabBarIcon:  ({ focused, tintColor }) => {
+            return <Icon size={30} name="history" color={tintColor} />;
+        },
+    }
 
     constructor(props) {
         super(props);
@@ -27,7 +36,7 @@ class WalletHistory extends Component {
 
     render() {
         return (
-            <View style={{...FastDesign.flexColumn}}>
+            <View style={{...FastDesign.flexColumn, ...FastDesign.flexOne, ...globalStyle.backgroundColor}}>
                 <Text>WalletHistory</Text>
             </View>
         );

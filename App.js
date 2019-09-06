@@ -50,12 +50,12 @@ const SwitchNavigator = createBottomTabNavigator({
     WalletReceive
 },{
     tabBarOptions: {
-        activeTintColor: '#FF5722',
-        // activeColor: 'blue',
-        labelStyle: {fontSize: 20, fontWeight: 'bold', fontFamily: 'BYekan'},
+        activeTintColor: '#F7931A',
+        activeColor: '#F7931A',
+        labelStyle: {fontSize: 20, fontWeight: 'bold', fontFamily: 'BYekan', color: "#E4EBF2"},
         // tabStyle: {paddingBottom: 5},
-        style: {paddingBottom: 5, paddingTop: 5, height: 60,},
-        showLabel: false,
+        style: {paddingBottom: 5, paddingTop: 5, height: 60, backgroundColor: "#1F1641"},
+        // showLabel: false,
         // showIcon: false,
     }
 });
@@ -63,9 +63,15 @@ const SwitchNavigator = createBottomTabNavigator({
 
 class Wallet extends Component {
     static router = SwitchNavigator.router;
-    static navigationOptions = {
-        header: null
-    }
+    // static navigationOptions = {
+    //     header: null
+    // }
+    static navigationOptions = () => ({
+       headerStyle: {
+         backgroundColor: '#F7931A'
+       },
+     });
+
     render() {
         return (
             <SwitchNavigator navigation={this.props.navigation} />
@@ -87,7 +93,7 @@ const AppNavigator = createStackNavigator({
     QRCodeScan: {
         screen: QRCodeScan
     },
-    wallet: {
+    Wallet: {
       screen: Wallet
     }
 },{

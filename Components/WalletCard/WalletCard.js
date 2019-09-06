@@ -6,12 +6,13 @@ import {
 } from 'react-native';
 import {withNavigation} from 'react-navigation'
 import {FastDesign, backgroundColor, textColor} from '../../Styles/Styles';
-
+import { connect } from 'react-redux';
+import * as actions from '../../Redux/actions/wallets';
 
 class WalletCard extends Component {
 
     onPress = () => {
-        // console.log("onPress");
+        console.log("onPress");
         // console.log(this.props.screen);
         // console.log(this.props.navigation);
         // this.props.navigation.push(this.props.screen);
@@ -21,7 +22,7 @@ class WalletCard extends Component {
 
     render() {
         return (
-            <TouchableHighlight style={{...styles.container}} onPress={this.onPress} }>
+            <TouchableHighlight style={{...styles.container}} onPress={this.onPress}>
              <View>
                 <Text style={{...FastDesign.h5, ...textColor.white}}>{this.props.walletName}</Text>
                 <Text style={{...FastDesign.h5, ...textColor.white}}>{this.props.value} BTC</Text>

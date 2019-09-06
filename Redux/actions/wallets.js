@@ -51,7 +51,7 @@ export const setStore = (store) => {
 
 export const setActiveWallet = (walletName) => {
     console.log('setActiveWallet actions');
-    console.log(store);
+    console.log(walletName);
     return {
              type: actionTypes.Set_Active_Wallet, 
              walletName: walletName                  
