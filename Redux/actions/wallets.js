@@ -13,14 +13,15 @@ export const addWallet = (walletName, privateAddress, publicAddress, value) => {
     }
 };
 
-export const addTransaction = (transactionType, from, to, value) => {
+export const addTransaction = (transactionType, sender, receiver, value, status) => {
     console.log('addTransaction actions');
     return {
                     type: actionTypes.Add_Transaction,
                     transactionType: transactionType,
-                    from: from,
-                    to: to,
-                    value: value
+                    sender: sender,
+                    receiver: receiver,
+                    value: value,
+                    status: status
     }
 };
 
@@ -41,9 +42,19 @@ export const checkStorage = () => {
 
 export const setStore = (store) => {
     console.log('setStore actions');
+    console.log(store);
     return {
              type: actionTypes.Set_Store, 
              store: store                  
+    }
+};
+
+export const setActiveWallet = (walletName) => {
+    console.log('setActiveWallet actions');
+    console.log(store);
+    return {
+             type: actionTypes.Set_Active_Wallet, 
+             walletName: walletName                  
     }
 };
 

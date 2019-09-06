@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 import CreateWallet from './Screens/CreateWallet/CreateWallet';
 import HomeScreen from './Screens/HomeScreen/HomeScreen';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
+import WalletSend from './Screens/WalletSend/WalletSend';
+import WalletReceive from './Screens/WalletReceive/WalletReceive';
+import WalletHistory from './Screens/WalletHistory/WalletHistory';
+import {createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
 import { persistStore, persistCombineReducers } from 'redux-persist'
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from 'react-redux';
@@ -41,16 +44,35 @@ const store = createStore(rootReducer, composeEnhancers(
 
 store.dispatch(actions.checkStorage());
 
-// Use the reducer combining function provided by redux-persist
-// const reducer = persistCombineReducers(config, { wallet: walletReducer })
-// const store = createStore(reducer); //, applyMiddleware(logger)
-// persistStore(
-//     store,
-//     null,
-//     () => {
-//         store.getState() // if you want to get restoredState
-//     }
-// )
+const SwitchNavigator = createBottomTabNavigator({
+    WalletSend,
+    WalletHistory,
+    WalletReceive
+},{
+    tabBarOptions: {
+        activeTintColor: '#FF5722',
+        // activeColor: 'blue',
+        labelStyle: {fontSize: 20, fontWeight: 'bold', fontFamily: 'BYekan'},
+        // tabStyle: {paddingBottom: 5},
+        style: {paddingBottom: 5, paddingTop: 5, height: 60,},
+        showLabel: false,
+        // showIcon: false,
+    }
+});
+
+
+class Wallet extends Component {
+    static router = SwitchNavigator.router;
+    static navigationOptions = {
+        header: null
+    }
+    render() {
+        return (
+            <SwitchNavigator navigation={this.props.navigation} />
+        )
+    }
+}
+
 
 const AppNavigator = createStackNavigator({
     Home: {
@@ -65,6 +87,9 @@ const AppNavigator = createStackNavigator({
     QRCodeScan: {
         screen: QRCodeScan
     },
+    wallet: {
+      screen: Wallet
+    }
 },{
     initialRouteName: 'Home',
 });

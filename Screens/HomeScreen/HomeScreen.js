@@ -16,8 +16,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import  Carousel  from 'react-native-snap-carousel';
 import Rectangle from '../../Components/Rectangle/Rectangle';
+import WalletCard from '../../Components/WalletCard/WalletCard';
 import { connect } from 'react-redux';
-import {FastDesign, bcackGroundColor, textColor} from '../../Styles/Styles';
+import {FastDesign, backgroundColor, textColor} from '../../Styles/Styles';
+import {globalStyle} from '../../Styles/globalStyle';
 import * as actions from '../../Redux/actions/wallets';
 import {withNavigation, NavigationActions} from 'react-navigation'
 
@@ -34,7 +36,7 @@ class HomeScreen extends Component {
     }
 
     _renderItem ({item, index}) {
-        return  <Rectangle text={item.walletName}/>;
+        return  <WalletCard walletName={item.walletName}  value={item.value} />;
     }
 
     refreshFunction = () => {
@@ -56,11 +58,11 @@ class HomeScreen extends Component {
          console.log("this.props.wallets");console.log(this.props.wallets);
          console.log("this.props.loading");console.log(this.props.loading);
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container, ...globalStyle.backgroundColor}}>
               <Carousel
                   data={this.props.wallets}
                   renderItem={this._renderItem}
-                  sliderWidth={300}
+                  sliderWidth={350}
                   itemWidth={200}
                   inactiveSlideScale={0.95}
                   inactiveSlideOpacity={1}
@@ -73,9 +75,9 @@ class HomeScreen extends Component {
                   }}
               />
               <View style={{...FastDesign.flexColumn, ...FastDesign.flexSpaceAround}}>
-                <Rectangle text="Create Wallet" textStyle={{...textColor.white}} onPress={this.goToCreateWallet} style={{...bcackGroundColor.green, ...FastDesign.p4}} />
-                <Rectangle text="Import Wallet" textStyle={{...textColor.white}} onPress={this.goToImportWallet}  style={{...bcackGroundColor.yellow, ...FastDesign.p4, ...textColor.white}}/>
-                <Rectangle text="Import Gift cart" textStyle={{...textColor.white}}  style={{...bcackGroundColor.pink, ...FastDesign.p4, ...textColor.white}} />
+                <Rectangle text="Create Wallet" textStyle={{...textColor.white}} onPress={this.goToCreateWallet} style={{...globalStyle.buttonBackgroud, ...FastDesign.p4}} />
+                <Rectangle text="Import Wallet" textStyle={{...textColor.white}} onPress={this.goToImportWallet}  style={{...globalStyle.buttonBackgroud, ...FastDesign.p4, ...textColor.white}}/>
+                <Rectangle text="Import Gift cart" textStyle={{...textColor.white}}  style={{...globalStyle.buttonBackgroud, ...FastDesign.p4, ...textColor.white}} />
               </View>
             </View>
   );
@@ -134,7 +136,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.addWallet(walletName, privateAddress, publicAddress) ),
+        addWallet: (walletName, privateAddress, publicAddress, value) => dispatch( actions.addWallet(walletName, privateAddress, publicAddress, value) ),
     };
 };
 

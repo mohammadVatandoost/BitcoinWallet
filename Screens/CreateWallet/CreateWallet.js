@@ -7,7 +7,8 @@ import {
 import {withNavigation, NavigationActions} from 'react-navigation'
 import { connect } from 'react-redux';
 import * as actions from '../../Redux/actions/wallets';
-
+import {FastDesign, backgroundColor, textColor} from '../../Styles/Styles';
+import {globalStyle} from '../../Styles/globalStyle';
 
 class CreateWallet extends Component {
 
@@ -18,7 +19,7 @@ class CreateWallet extends Component {
 
     onPress = () => {
         // this.props.navigation.navigate(this.props.screen);
-        this.props.createWallet(this.state.walletName, "test", "test");
+        this.props.addWallet(this.state.walletName, "test", "test", 0);
         const refreshFunction = this.props.navigation.state.params.refreshFunction;
         if(typeof refreshFunction === 'function')
         {
@@ -32,14 +33,14 @@ class CreateWallet extends Component {
     render() {
         console.log("CreateWallet page this.props.loading");console.log(this.props.loading);
         return (
-            <View style={styles.container}>
+            <View style={{...styles.container, ...globalStyle.backgroundColor}}>
                 <Text style={styles.title}>Create New Wallet</Text>
                 <TextInput placeholder="Enter your wallet name"
                     style={styles.primery_input}
                     onChangeText={(text) => this.setState({walletName: text})}
                     value={this.state.walletName}
                 />
-                <TouchableHighlight style={styles.successBtn} onPress={this.onPress}>
+                <TouchableHighlight style={{...styles.successBtn, ...globalStyle.buttonBackgroud}} onPress={this.onPress}>
                    <Text style={styles.textBtn}> Create </Text>
                 </TouchableHighlight>
             </View>
@@ -63,16 +64,16 @@ const styles = StyleSheet.create({
         // elevation: 7,
     },
     title : {
-        fontSize: 35, fontWeight: 'bold',
+        fontSize: 35, fontWeight: 'bold', color: "white"
     },
     primery_input: {
         width: '80%', borderColor: 'gray', borderWidth: 1, marginTop: 30, padding: 15, fontSize: 25,
-       borderRadius:10,
+       borderRadius:10, color: "white"
     },
     successBtn: {
          padding: 20, borderRadius:10,
         fontWeight: 'bold',
-        backgroundColor: "#00CA4C", marginTop: 20,
+         marginTop: 20,backgroundColor: "#00CA4C",
     },
     textBtn : {
        fontSize: 25, color: "white" 
@@ -88,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        createWallet: (walletName, privateAddress, publicAddress) => dispatch( actions.createWallet(walletName, privateAddress, publicAddress) )
+        addWallet: (walletName, privateAddress, publicAddress, value) => dispatch( actions.addWallet(walletName, privateAddress, publicAddress, value) ),
     };
 };
 
